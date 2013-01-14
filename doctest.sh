@@ -5,7 +5,16 @@ OUTPUT=""
 PORT=8999
 TEST_FILES=""
 LIBS=""
-while getopts ":t:o:p:" opt; do
+
+if [ "$1" == "--help" ];
+then
+	clear
+	cat $SCRIPTPATH/README.md
+	exit
+fi
+
+
+while getopts ":t:o:p:l:" opt; do
   case $opt in
     t)
 	    # this should be a c,d,s of test.js files
@@ -53,7 +62,7 @@ build_test (){
 		else
 			cp $l $SCRIPTPATH/tests/.
 			FILE=$(basename "$l")
-			echo "<script src='$l'></script>" >> $SCRIPTPATH/index.html
+			echo "<script src='http://127.0.0.1:$PORT/tests/$FILE'></script>" >> $SCRIPTPATH/index.html
 	        fi	       
 
 	done
@@ -78,10 +87,14 @@ cd $SCRIPTPATH
 echo "Staring Test on port: $PORT"
 python -m SimpleHTTPServer $PORT >/dev/null 2>&1 &
 SERVER_PID=$!
-echo "...type k to end"
+echo "...type k and hit Enter to end"
 read END_SESS
 if [ $END_SESS == "k" ];
 then
+	# clean up
+	rm $SCRIPTPATH/index.html
+	rm -r $SCRIPTPATH/tests
+
 	kill $SERVER_PID
 	exit
 fi
