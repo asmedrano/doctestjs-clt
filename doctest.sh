@@ -13,6 +13,13 @@ then
 	exit
 fi
 
+if [ "$1" == "--install" ];
+then
+	cd $SCRIPTPATH
+	git submodule init
+	git submodule update
+	exit
+fi
 
 while getopts ":t:o:p:l:" opt; do
   case $opt in

@@ -11,6 +11,8 @@ Optionally you can create an alias in `~/.bashrc`
 Ex:
 `alias doctestjs='bash /path/to/doctest.sh'
 
+You'll need to fetch the `doctest.js` code from github. Its included in this repo as a submodule and you can easily install it using `./doctest.js --install`
+
 ##Usage:
 
 ```
@@ -23,6 +25,10 @@ You should then see
 Staring Test on port: 8999
 ...type k then Enter to end
 ```
+
+You can access your test page at 
+
+`http://127.0.0.1:8999/`
 
 Typing `k` and then `Enter` will kill the session.
 
